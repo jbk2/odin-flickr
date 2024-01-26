@@ -5,7 +5,7 @@
   </div>
 
   <div class="my-8">
-    <%= form_with url: '/static_pages/flickr_users_images', data: { turbo: false } do |f| %>
+    <%= form_with url: static_pages_home_path, method: :get, local: true do |f| %>
         <%= f.label "Flickr User ID:", :flickr_user_id %>
         <%= f.text_field :flickr_user_id %>
         <%= f.submit "Get Photos", class: "btn-primary-sm" %>
@@ -13,7 +13,7 @@
   </div>
 
   <div class="photos">
-    <% if @photos %>
+    <% if @photos.present? %>
       <%= render partial: 'images', locals: { photos: @photos, flickr_user_id: @flickr_user_id } %>
     <% end %>
   </div>  
