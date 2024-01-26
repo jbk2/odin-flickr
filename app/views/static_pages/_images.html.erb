@@ -1,8 +1,9 @@
 <section>
-  <h1><%= @flickr_user_id %>'s Photos</h1>
+  <h1><%= flickr_user_id %>'s Photos</h1>
   <div>
-    <% @photos.each do |photo| %>
-      <img src="<%= photo. %>" alt="">
+    <% photos.each do |photo| %>
+      <p><%= photo[:url] %></p>
+      <img src="<%= photo[:url] %>" alt="photo" %>
     <% end %>
   </div>
 </section>
