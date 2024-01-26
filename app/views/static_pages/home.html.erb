@@ -1,0 +1,18 @@
+<div>
+  <h1 class="font-bold text-4xl">StaticPages#home</h1>
+  <p>Find me in app/views/static_pages/home.html.erb</p>
+</div>
+
+<div class="my-8">
+  <%= form_with url: '/flickr_users_images' do |f| %>
+      <%= f.label "Flickr User ID:", :flickr_user_id %>
+      <%= f.text_field :flickr_user_id %>
+      <%= f.submit "Get Photos", class: "btn-primary-sm" %>
+  <% end %>
+</div>
+
+<div class="photos">
+  <% if @photos %>
+    <%= render partial: 'iamges' %>
+  <% end %>
+</div>
