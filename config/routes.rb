@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'sessions/failure'
   get 'static_pages/home'
   post 'static_pages/flickr_users_images'
+  get 'static_pages/flickr_users_contacts'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

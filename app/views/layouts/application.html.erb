@@ -16,12 +16,15 @@
     <p class="alert"><%= alert %></p>
 
     <div>
+
+      Here's your params: <%= params %>
+
       <% if user_signed_in? %>
         <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
         <!-- Other user-specific content -->
       <% else %>
         <%= link_to 'Sign In', new_user_session_path %>
-        <%= link_to 'Sign in with Flickr', user_flickr_omniauth_authorize_path %>
+        <%= button_to 'Sign in with Flickr', user_flickr_omniauth_authorize_path, data: { turbo: false } %>
       <% end %>
     </div>
     

@@ -150,6 +150,9 @@ GEM
     omniauth-oauth (1.2.0)
       oauth
       omniauth (>= 1.0, < 3)
+    omniauth-rails_csrf_protection (1.0.1)
+      actionpack (>= 4.2)
+      omniauth (~> 2.0)
     orm_adapter (0.5.0)
     pg (1.5.4)
     psych (5.1.2)
@@ -264,8 +267,8 @@ DEPENDENCIES
   devise (~> 4.9)
   importmap-rails
   jbuilder
-  oauth (~> 1.1)
   omniauth-flickr (~> 0.0.20)
+  omniauth-rails_csrf_protection (~> 1.0)
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.8)

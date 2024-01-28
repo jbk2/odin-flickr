@@ -72,10 +72,11 @@ gem "bundle", "~> 0.0.1", :groups => [:development, :test]
 gem "add", "~> 0.3.2", :groups => [:development, :test]
 gem "rspec-rails", "~> 6.1", :groups => [:development, :test]
 
-gem "oauth", "~> 1.1"
 
 gem "omniauth-flickr", "~> 0.0.20"
 
 gem "devise", "~> 4.9"
 
 gem "annotate", "~> 3.2"
+
+gem "omniauth-rails_csrf_protection", "~> 1.0"
