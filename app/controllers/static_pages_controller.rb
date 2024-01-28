@@ -24,6 +24,6 @@ class StaticPagesController < ApplicationController
   end
 
   def static_page_params
-    params.require(:static_page).permit(:flickr_user_id)
+    params.require(:static_page).permit(:flickr_user_id, :uid, :username)
   end
 end
