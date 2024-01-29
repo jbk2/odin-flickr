@@ -8,16 +8,18 @@
 
 
     <div class="my-8">
-      <%= form_with url: static_pages_home_path, method: :get, local: true do |f| %>
+      <%= form_with url: static_pages_home_path, method: :get, data: { turbo: false } do |f| %>
           <%= f.label "Flickr User ID:", :flickr_user_id, class: "label text-md font-bold" %>
-          <%= f.text_field :flickr_user_id, class: "input input-bordered input-primary max-w-xs" %>
+          <%= f.text_field :uid, value: current_user.uid, class: "input input-bordered input-primary max-w-xs" %>
+          <%= f.hidden_field :api_method, value: :fetch_photos %>
           <%= f.submit "Get Photos", class: "btn btn-primary" %>
       <% end %>
     </div>
     <div class="my-8">
       <% if user_signed_in? %>
-        <%= form_with url: static_pages_home_path, method: :get, local: true do |f| %>
+        <%= form_with url: static_pages_home_path, method: :get, data: { turbo: false } do |f| %>
           <%= f.hidden_field :uid, value: current_user.uid %>
+          <%= f.hidden_field :api_method, value: :fetch_contacts %>
           <%= f.submit "Get My Contacts", class: "btn btn-primary" %>
         <% end %>
       <% else %>

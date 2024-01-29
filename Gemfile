@@ -80,3 +80,5 @@ gem "devise", "~> 4.9"
 gem "annotate", "~> 3.2"
 
 gem "omniauth-rails_csrf_protection", "~> 1.0"
+
+gem "pry-byebug", "~> 3.10"
