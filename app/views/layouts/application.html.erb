@@ -11,25 +11,46 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+  <body class="m-4">
+    <nav class="flex flex-row">
 
-    <div>
+      <div class="home-btn">
+        <% unless current_page?(root_path) %>
+          <%= link_to "Home", root_path, class: "btn btn-primary w-40 mr-6" %>
+        <% end %>
+      </div>
 
-      Here's your params: <%= params %>
+      <div class="account-btns mr-6">
+        <% if user_signed_in? %>
+          <%= link_to 'Sign out', destroy_user_session_path, data: { turbo_method: :delete }, class: "link" %>
+        <% else %>
+          <div class="flex">
+            <%= button_to 'Sign In', new_user_session_path, class: "btn btn-primary mr-2" %>
+            <%= button_to 'Sign in with Flickr', user_flickr_omniauth_authorize_path, data: { turbo: false }, class: "inline btn btn-primary mr-2" %>
+          </div>
+        <% end %>
+      </div>
 
-      <% if user_signed_in? %>
-        <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
-        <!-- Other user-specific content -->
-      <% else %>
-        <%= link_to 'Sign In', new_user_session_path %>
-        <%= button_to 'Sign in with Flickr', user_flickr_omniauth_authorize_path, data: { turbo: false } %>
-      <% end %>
-    </div>
-    
-    <main class="container mx-auto mt-28 px-5 flex">
+      <div class="params mr-6">
+        <p class="prose">Here's your params: <%= params %></p>
+      </div>
+
+      <div class="flash">
+        <% unless flash.empty? %>
+          <% if notice %>
+            <p class="notice"><%= notice %></p>
+          <% end %>
+          <% if alert %>
+            <p class="alert"><%= alert %></p>
+          <% end %>
+        <% end %>
+      </div>
+
+    </nav>
+  
+    <main class="">
       <%= yield %>
     </main>
+
   </body>
 </html>

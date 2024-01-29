@@ -1,47 +1,48 @@
-<div class="flex flex-col">
-  <div>
-    <h1 class="font-bold text-4xl">StaticPages#home</h1>
-    <p>Find me in app/views/static_pages/home.html.erb</p>
-  </div>
+<div class="container mx-auto mt-28 px-5 flex">
+  <div class="flex flex-col">
+    <div class="prose">
+      <h1 class="font-bold text-4xl">StaticPages#home</h1>
+      <p>Find me in app/views/static_pages/home.html.erb</p>
+    </div>
 
 
 
-  <div class="my-8">
-    <%= form_with url: static_pages_home_path, method: :get, local: true do |f| %>
-        <%= f.label "Flickr User ID:", :flickr_user_id %>
-        <%= f.text_field :flickr_user_id %>
-        <%= f.submit "Get Photos", class: "btn-primary-sm" %>
-    <% end %>
-  </div>
-  <div class="my-8">
-    <% if user_signed_in? %>
+    <div class="my-8">
       <%= form_with url: static_pages_home_path, method: :get, local: true do |f| %>
-        <%= f.hidden_field :uid, value: current_user.uid %>
-        <%= f.submit "Get My Contacts", class: "btn-primary-sm" %>
+          <%= f.label "Flickr User ID:", :flickr_user_id, class: "label text-md font-bold" %>
+          <%= f.text_field :flickr_user_id, class: "input input-bordered input-primary max-w-xs" %>
+          <%= f.submit "Get Photos", class: "btn btn-primary" %>
       <% end %>
-    <% else %>
-      <%= link_to "Sign in with Flickr", user_flickr_omniauth_authorize_path, data: { turbo: false } %>
-    <% end %>
+    </div>
+    <div class="my-8">
+      <% if user_signed_in? %>
+        <%= form_with url: static_pages_home_path, method: :get, local: true do |f| %>
+          <%= f.hidden_field :uid, value: current_user.uid %>
+          <%= f.submit "Get My Contacts", class: "btn btn-primary" %>
+        <% end %>
+      <% else %>
+        <%= link_to "Sign in with Flickr", user_flickr_omniauth_authorize_path, data: { turbo: false } %>
+      <% end %>
 
-     <%#= form_with url: static_pages_home_path, method: :get, local: true do |f| %>
-        <%#= f.hidden_field :uid, value: current_user.uid %>
-        <%#= f.submit "Get My contacts", class: "btn-primary-sm" %>
-    <%# end %>
+      <%#= form_with url: static_pages_home_path, method: :get, local: true do |f| %>
+          <%#= f.hidden_field :uid, value: current_user.uid %>
+          <%#= f.submit "Get My contacts", class: "btn-primary-sm" %>
+      <%# end %>
+    </div>
+
+
+    <div class="photos">
+      <% if @photos.present? %>
+        <%= render partial: 'images', locals: { photos: @photos, flickr_user_id: @flickr_user_id } %>
+      <% end %>
+    </div>  
+    
+    <div class="contacts">
+      <% if @contacts.present? %>
+        <%= @contacts.each do |contact| %>
+          <%= contact.username %>
+        <% end %>
+      <% end %>
+    </div>  
   </div>
-
-
-  <div class="photos">
-    <% if @photos.present? %>
-      <%= render partial: 'images', locals: { photos: @photos, flickr_user_id: @flickr_user_id } %>
-    <% end %>
-  </div>  
-  
-  <div class="contacts">
-    <% if @contacts.present? %>
-      <%= @contacts.each do |contact| %>
-        <%= contact.username %>
-      <% end %>
-    <% end %>
-  </div>  
 </div>
-
