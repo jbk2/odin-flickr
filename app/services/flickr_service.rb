@@ -17,10 +17,9 @@ class FlickrService
     consumer = OAuth::Consumer.new(@flickr_api_key, @flickr_api_secret, { site: FLICKR_API_URL })
     access_token = OAuth::AccessToken.new(consumer, @user.oauth_token, @user.oauth_token_secret)
 
-  Rails.logger.debug(build_url(api_method))
     response = access_token.get(build_url(api_method))
-  Rails.logger.debug(response)
-    # return [] unless response.is_a?(Net::HTTPSuccess)
+    # test_url = "https://api.flickr.com/services/rest/?method=flickr.people.getPhotos&user_id=#{@user.uid}&format=json&nojsoncallback=1"
+
     begin
       json = JSON.parse(response.body)
       if json['stat'] == 'ok' && json['photos']
@@ -43,21 +42,22 @@ class FlickrService
   def fetch_contacts(api_method)
     consumer = OAuth::Consumer.new(@flickr_api_key, @flickr_api_secret, { site: FLICKR_API_URL })
     access_token = OAuth::AccessToken.new(consumer, @user.oauth_token, @user.oauth_token_secret)
-
-  Rails.logger.debug(build_url(api_method))
     response = access_token.get(build_url(api_method))
-  Rails.logger.debug(response)
-    # return [] unless response.is_a?(Net::HTTPSuccess)
+
+    return [] unless response.is_a?(Net::HTTPSuccess)
+    json = JSON.parse(response.body)
+    Rails.logger.debug(json['contacts'])
 
     begin
       json = JSON.parse(response.body)
   
       if json['stat'] == 'ok' && json['contacts']
-        # Assuming 'contacts' is an array of contact objects
-        json['contacts']['contact'].map do |contact|
+        data = json['contacts']['contact'].map do |contact|
           # Extract and return the desired information from each contact
           { username: contact['nickname'] }
         end
+        puts "************ HERES THE CONTACT DATA #{data}"
+        data
       else
         Rails.logger.error("Unexpected JSON structure: #{json}")
         []
@@ -79,5 +79,5 @@ class FlickrService
     })
     uri.to_s
   end
-
+  
 end
